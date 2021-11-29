@@ -25,4 +25,32 @@ public class Piece : MonoBehaviour
             this.cells[i] = (Vector3Int)data.cells[i];
         }
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Move(Vector2Int.left);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            Move(Vector2Int.right);
+        }
+    }
+
+    private bool Move(Vector2Int traslation)
+    {
+        Vector3Int newPosition = this.position;
+        newPosition.x += traslation.x;
+        newPosition.y += traslation.y;
+
+        bool valid = this.board.IsValidPosition(this, newPosition);
+
+        if (valid)
+        {
+            this.position = newPosition;
+        }
+
+        return valid;
+    }
 }
