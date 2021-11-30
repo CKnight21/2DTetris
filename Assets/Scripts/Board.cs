@@ -7,7 +7,7 @@ public class Board : MonoBehaviour
     public Piece activePiece { get; private set; }
 
     public TetrominoData[] tetrominoes;
-    public Vector2Int boardSize = new Vector2Int(10, 20);
+    public Vector2Int boardSize = new Vector2Int(10, 20); // we have the size of the board pre set here so that it looks correct on the screen
     public Vector3Int spawnPosition = new Vector3Int(-1, 8, 0);
 
     public RectInt Bounds
@@ -30,11 +30,14 @@ public class Board : MonoBehaviour
         }
     }
 
+    //this function calls spawn piece 
     private void Start()
     {
         SpawnPiece();
     }
 
+    //In this function we are calling a random block that is saved in an array within our data script. 
+    // This random block that is spawned can then be moved 
     public void SpawnPiece()
     {
         int random = Random.Range(0, this.tetrominoes.Length);
