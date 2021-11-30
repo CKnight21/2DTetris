@@ -3,7 +3,7 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
     public Board board { get; private set; }
-    public TetrominoData data { get; private set; }
+    public PentominoData data { get; private set; }
     public Vector3Int[] cells { get; private set; }
     public Vector3Int position { get; private set; }
     public int rotationIndex { get; private set; }
@@ -16,7 +16,7 @@ public class Piece : MonoBehaviour
     private float moveTime;
     private float lockTime;
 
-    public void Initialize(Board board, Vector3Int position, TetrominoData data)
+    public void Initialize(Board board, Vector3Int position, PentominoData data)
     {
         this.data = data;
         this.board = board;
@@ -181,10 +181,10 @@ public class Piece : MonoBehaviour
 
             int x, y;
 
-            switch (this.data.tetromino)
+            switch (this.data.Pentomino)
             {
-                case Tetromino.I:
-                case Tetromino.O:
+                case Pentomino.I:
+                case Pentomino.O:
                     // "I" and "O" are rotated from an offset center point
                     cell.x -= 0.5f;
                     cell.y -= 0.5f;

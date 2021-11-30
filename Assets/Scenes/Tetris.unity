@@ -2015,21 +2015,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1450d9932a2b5634b9e32647f5185ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tetrominoes:
-  - tile: {fileID: 11400000, guid: 41367838fadcc0d47a1633f4f5cec10e, type: 2}
-    tetromino: 0
+  Pentominoes:
   - tile: {fileID: 11400000, guid: b64a681e69ec9ea4b82cd332074e8abd, type: 2}
-    tetromino: 1
-  - tile: {fileID: 11400000, guid: 746ab13c67f2bc8469aa2463fba739a2, type: 2}
-    tetromino: 2
-  - tile: {fileID: 11400000, guid: 52494957b9bb1bc4dbf45908e784fde3, type: 2}
-    tetromino: 3
+    Pentomino: 0
+  - tile: {fileID: 11400000, guid: 41367838fadcc0d47a1633f4f5cec10e, type: 2}
+    Pentomino: 1
   - tile: {fileID: 11400000, guid: 0748a92eb39db6342a8b713ba1f8b91d, type: 2}
-    tetromino: 4
+    Pentomino: 2
+  - tile: {fileID: 11400000, guid: 746ab13c67f2bc8469aa2463fba739a2, type: 2}
+    Pentomino: 3
   - tile: {fileID: 11400000, guid: 04023e1f7915c564dbf6baf33605d5b0, type: 2}
-    tetromino: 5
+    Pentomino: 4
   - tile: {fileID: 11400000, guid: 66c8fa92631e4a14ba9328523e472845, type: 2}
-    tetromino: 6
+    Pentomino: 5
+  - tile: {fileID: 11400000, guid: 52494957b9bb1bc4dbf45908e784fde3, type: 2}
+    Pentomino: 6
   boardSize: {x: 10, y: 20}
   spawnPosition: {x: -1, y: 8, z: 0}
 --- !u!114 &1799085428
