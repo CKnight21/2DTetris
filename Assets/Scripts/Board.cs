@@ -10,6 +10,8 @@ public class Board : MonoBehaviour
     public Vector2Int boardSize = new Vector2Int(10, 20);
     public Vector3Int spawnPosition = new Vector3Int(-1, 8, 0);
 
+
+    //This function is creating the rectangle for the boar
     public RectInt Bounds
     {
         get
