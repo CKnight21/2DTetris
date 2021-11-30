@@ -14,7 +14,7 @@ public class Ghost : MonoBehaviour
     private void Awake()
     {
         this.tilemap = GetComponentInChildren<Tilemap>();
-        this.cells = new Vector3Int[4];
+        this.cells = new Vector3Int[5];
     }
 
     private void LateUpdate()
