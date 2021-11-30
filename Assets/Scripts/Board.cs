@@ -29,19 +29,21 @@ public class Board : MonoBehaviour
             UpdateHUD();
         }
     }
-
+    //updates text field in scene with point counter value
     private void UpdateHUD()
     {
         pointText.text = points.ToString();
     }
-
+    //actual number counter for points
     private IEnumerator CountPoints()
     {
+        //adds ten points in perpetuity
         while (true)
         {
             Points += 10;
 
             yield return new WaitForSeconds(1);
+            //resets to 0 points when text is set to "0"
             if (pointText.text == "0")
             {
                 Points = 0;
@@ -62,7 +64,7 @@ public class Board : MonoBehaviour
 
     private void Awake()
     {
-
+        //uses getcomponent to pass data
         this.tilemap = GetComponentInChildren<Tilemap>();
         this.activePiece = GetComponentInChildren<Piece>();
         //starts counting points
@@ -78,14 +80,14 @@ public class Board : MonoBehaviour
     {
         SpawnPiece();
     }
-
+    //uses random and pentdata struct to build a random piece
     public void SpawnPiece()
     {
         int random = Random.Range(0, this.Pentominoes.Length);
         PentominoData data = this.Pentominoes[random];
 
         this.activePiece.Initialize(this, this.spawnPosition, data);
-
+        //checks to see if theres room for piece
         if (!IsValidPosition(this.activePiece, this.spawnPosition))
         {
             GameOver();
@@ -98,8 +100,9 @@ public class Board : MonoBehaviour
 
     public void GameOver()
     {
+        //clears tiles
         this.tilemap.ClearAllTiles();
-
+        //resets point text in editor to 0
         pointText.text = "0";
     }
 
@@ -125,18 +128,18 @@ public class Board : MonoBehaviour
     {
         RectInt bounds = this.Bounds;
 
-        // The position is only valid if every cell is valid
+        //position is only valid if every cell is valid
         for (int i = 0; i < piece.cells.Length; i++)
         {
             Vector3Int tilePosition = piece.cells[i] + position;
 
-            // An out of bounds tile is invalid
+            //out of bounds tile is invalid
             if (!bounds.Contains((Vector2Int)tilePosition))
             {
                 return false;
             }
 
-            // A tile already occupies the position, thus invalid
+            //tile already occupies the position, thus invalid
             if (this.tilemap.HasTile(tilePosition))
             {
                 return false;
@@ -151,11 +154,10 @@ public class Board : MonoBehaviour
         RectInt bounds = this.Bounds;
         int row = bounds.yMin;
 
-        // Clear from bottom to top
+        //clear from bottom to top
         while (row < bounds.yMax)
         {
-            // Only advance to the next row if the current is not cleared
-            // because the tiles above will fall down when a row is cleared
+            //advance to the next row if the current is not cleared
             if (IsLineFull(row))
             {
                 LineClear(row);
@@ -175,7 +177,7 @@ public class Board : MonoBehaviour
         {
             Vector3Int position = new Vector3Int(col, row, 0);
 
-            // The line is not full if a tile is missing
+            //line is not full if a tile is missing
             if (!this.tilemap.HasTile(position))
             {
                 return false;
@@ -189,14 +191,14 @@ public class Board : MonoBehaviour
     {
         RectInt bounds = this.Bounds;
 
-        // Clear all tiles in the row
+        //clear all tiles in the row
         for (int col = bounds.xMin; col < bounds.xMax; col++)
         {
             Vector3Int position = new Vector3Int(col, row, 0);
             this.tilemap.SetTile(position, null);
         }
 
-        // Shift every row above down one
+        //shift every row above down one
         while (row < bounds.yMax)
         {
             for (int col = bounds.xMin; col < bounds.xMax; col++)

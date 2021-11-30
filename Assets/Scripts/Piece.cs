@@ -42,11 +42,10 @@ public class Piece : MonoBehaviour
     {
         this.board.Clear(this);
 
-        // We use a timer to allow the player to make adjustments to the piece
-        // before it locks in place
+        //use a timer to allow the player to make adjustments to the piece
         this.lockTime += Time.deltaTime;
 
-        // Handle rotation
+        //handle rotation
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Rotate(-1);
@@ -56,20 +55,19 @@ public class Piece : MonoBehaviour
             Rotate(1);
         }
 
-        // Handle hard drop
+        //handle hard drop
         if (Input.GetKeyDown(KeyCode.Space))
         {
             HardDrop();
         }
 
-        // Allow the player to hold movement keys but only after a move delay
-        // so it does not move too fast
+        //allow the player to hold movement keys but only after a move delay
         if (Time.time > this.moveTime)
         {
             HandleMoveInputs();
         }
 
-        // Advance the piece to the next row every x seconds
+        //advance the piece to the next row every x seconds
         if (Time.time > this.stepTime)
         {
             Step();
@@ -82,13 +80,13 @@ public class Piece : MonoBehaviour
     {
         this.moveTime = Time.time + this.moveDelay;
 
-        // Soft drop movement
+        //soft drop movement
         if (Input.GetKey(KeyCode.S))
         {
             Move(Vector2Int.down);
         }
 
-        // Left/right movement
+        //left/right movement
         if (Input.GetKey(KeyCode.A))
         {
             Move(Vector2Int.left);
@@ -103,14 +101,14 @@ public class Piece : MonoBehaviour
     {
         this.stepTime = Time.time + this.stepDelay;
 
-        // Do not move down if the player is already holding down
-        // otherwise it can cause a double movement
+        //do not move down if the player is already holding down
+        //otherwise it can cause a double movement
         if (!Input.GetKey(KeyCode.S))
         {
             Move(Vector2Int.down);
         }
 
-        // Once the piece has been inactive for too long it becomes locked
+        //once the piece has been inactive for too long it becomes locked
         if (this.lockTime >= this.lockDelay)
         {
             Lock();
@@ -142,7 +140,7 @@ public class Piece : MonoBehaviour
 
         bool valid = this.board.IsValidPosition(this, newPosition);
 
-        // Only save the movement if the new position is valid
+        //only save the movement if the new position is valid
         if (valid)
         {
             this.position = newPosition;
@@ -154,15 +152,14 @@ public class Piece : MonoBehaviour
 
     private void Rotate(int direction)
     {
-        // Store the current rotation in case the rotation fails
-        // and we need to revert
+        //store the current rotation in case the rotation fails
         int originalRotation = this.rotationIndex;
 
-        // Rotate all of the cells using a rotation matrix
+        //rotate all of the cells using a rotation matrix
         this.rotationIndex = Wrap(this.rotationIndex + direction, 0, 4);
         ApplyRotationMatrix(direction);
 
-        // Revert the rotation if the wall kick tests fail
+        //revert the rotation if the wall kick tests fail
         if (!TestWallKicks(this.rotationIndex, direction))
         {
             this.rotationIndex = originalRotation;
@@ -174,7 +171,7 @@ public class Piece : MonoBehaviour
     {
         float[] matrix = Data.RotationMatrix;
 
-        // Rotate all of the cells using the rotation matrix
+        //rotate all of the cells using the rotation matrix
         for (int i = 0; i < this.cells.Length; i++)
         {
             Vector3 cell = this.cells[i];
@@ -185,7 +182,7 @@ public class Piece : MonoBehaviour
             {
                 case Pentomino.I:
                 case Pentomino.O:
-                    // "I" and "O" are rotated from an offset center point
+                    //"I" and "O" are rotated from an offset center point
                     cell.x -= 0.5f;
                     cell.y -= 0.5f;
                     x = Mathf.CeilToInt((cell.x * matrix[0] * direction) + (cell.y * matrix[1] * direction));

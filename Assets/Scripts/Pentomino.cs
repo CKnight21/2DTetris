@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+//defines a state to be used
 public enum Pentomino
 {
     I, J, L, O, S, T, Z
 }
 
 [System.Serializable]
+//struct to build with collected data later
 public struct PentominoData
 {
     public Tile tile;
