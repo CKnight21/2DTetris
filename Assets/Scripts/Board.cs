@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
@@ -10,8 +13,44 @@ public class Board : MonoBehaviour
     public Vector2Int boardSize = new Vector2Int(10, 20);
     public Vector3Int spawnPosition = new Vector3Int(-1, 8, 0);
 
+    [SerializeField] Text pointText;
 
-    //This function is creating the rectangle for the boar
+    int points = 0;
+
+    public int Points
+    {
+        get
+        {
+            return points;
+        }
+        set
+        {
+            points = value;
+            UpdateHUD();
+        }
+    }
+
+    private void UpdateHUD()
+    {
+        pointText.text = points.ToString();
+    }
+
+    private IEnumerator CountPoints()
+    {
+        while (true)
+        {
+            Points += 10;
+
+            yield return new WaitForSeconds(1);
+            if (pointText.text == "0")
+            {
+                Points = 0;
+            }
+        }
+    }
+
+
+    //creating the rectangle for the board
     public RectInt Bounds
     {
         get
@@ -23,9 +62,12 @@ public class Board : MonoBehaviour
 
     private void Awake()
     {
+
         this.tilemap = GetComponentInChildren<Tilemap>();
         this.activePiece = GetComponentInChildren<Piece>();
-
+        //starts counting points
+        StartCoroutine(CountPoints());
+        UpdateHUD();
         for (int i = 0; i < this.Pentominoes.Length; i++)
         {
             this.Pentominoes[i].Initialize();
@@ -58,7 +100,7 @@ public class Board : MonoBehaviour
     {
         this.tilemap.ClearAllTiles();
 
-        // Do anything else you want on game over here..
+        pointText.text = "0";
     }
 
     public void Set(Piece piece)
